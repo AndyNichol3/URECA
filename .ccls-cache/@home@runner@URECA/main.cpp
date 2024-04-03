@@ -19,4 +19,6 @@ int main() {
 
   cout << "total tile size = " << mainUserWidth * mainUserLength << endl;
   cout << "total tile density = " << mainUserWidth * mainUserLength * mainUserDensity << endl; 
+  cout << endl;
+  cout << "---------------------------------------------" << endl;"
 }
