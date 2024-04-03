@@ -1,0 +1,15 @@
+ARCHITECTURE
+
+#1
+set up enviroment 
+get tilling and density
+craft the data structures needed to represent the grid 
+be able to display the grid (with color)
+calculate the number of detectores needed based on tile and density
+resize the data structures
+initalize constants 
+
+#2
+be able to check to see if given graph is a solution
+itterate through all choices 
+lenght x width chose density X lenght x width
