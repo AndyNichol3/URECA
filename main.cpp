@@ -1,5 +1,6 @@
 #include <iostream>
 #include "type.h"
+#include <iomanip> 
 
 
 using namespace std;

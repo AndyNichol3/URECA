@@ -1,5 +1,6 @@
 #include <iostream>
 #include "type.h"
+#include <string> 
 
 using namespace std;
 
@@ -58,20 +59,61 @@ int getUserTileLength(){
 }
 
 float getUserDensity(){
-  cout << "Input the target density of the graph: (enter a percentage as a decimal 0.0 to 1.0 or -1 to exit)" << endl;
+  cout << "Input the target density of the graph: (enter a fraction between 0 and 1 or -1 to exit)" << endl;
   float userDensity = -2.0;
+  string userDensityString;
   bool userInCheck = false;
+  
   while(!userInCheck){
-    cin >> userDensity;
-    // if -1 terminate the program
+    cout << "Enter Density as a fraction between 0 and 1, -1 to terminate" << endl; 
+    cin >> userDensityString;
+
     if(userDensity == -1){
       cout << "PROGRAM TERMINATED" << endl;
       exit(0);
     }
-    if(userDensity >= 0.0 && userDensity <= 1.0){
+
+    
+    float fNumerator = 0;
+    float fDenominator = 0;
+    string sNumerator;
+    string sDenominator; 
+    int switchNumOrDen = 100;
+    
+    for(int i = 0; i < userDensityString.length(); i++){
+
+      //cout << "letter is " << userDensityString[i] << endl;
+      
+      if(userDensityString[i] == '/'){
+       // cout << "entered /" << endl;
+        switchNumOrDen = i;
+        continue;
+      }
+      if(i < switchNumOrDen){
+       // cout << "entered numerator" << endl;
+        sNumerator += userDensityString[i];
+        continue; 
+      }
+      if(i > switchNumOrDen){
+       // cout << "entered denominator" << endl;
+        sDenominator += userDensityString[i];
+        continue;
+      }  
+      
+      
+      
+    }
+
+    fNumerator = std::stof(sNumerator);
+    fDenominator = std::stof(sDenominator);
+
+    userDensity = float(fNumerator / fDenominator);
+
+    if(userDensity > 0 && userDensity <= 1){
       userInCheck = true;
       cout << "VALID USER IN" << endl;
       break;
+      
     }
 
     cout << "INVALID USER IN, TRY AGAIN" << endl;
