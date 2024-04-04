@@ -1,6 +1,7 @@
 #include "type.h"
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -126,7 +127,14 @@ float getUserDensity() {
 void printGraph(int graphG[ABSOLUTE_MAX][ABSOLUTE_MAX], int graphWidth,
                 int graphLength) {
   for (int i = 0; i < graphWidth; i++) {
+    if(i % (graphWidth / 3) == 0){
+      cout << endl;
+    }
+    
     for (int j = 0; j < graphLength; j++) {
+      if(j % (graphLength / 3) == 0){
+        cout << " |  ";
+      }
       cout << graphG[i][j] << " ";
     }
     cout << endl;
@@ -135,29 +143,28 @@ void printGraph(int graphG[ABSOLUTE_MAX][ABSOLUTE_MAX], int graphWidth,
 }
 
 void FindCombinations(int inputArray[], int combinationArray[], int start,
-                      int end, int index, int r) {
+                      int end, int index, int r, fstream &inFile) {
 
   if (index == r) {
+     cout << "combination: ";
     for (int i = 0; i < r; i++) {
-      cout << "combination: ";
+     
       cout << combinationArray[i] << " ";
 
-      // this is where the loading goes
+      // write to file
+      inFile << combinationArray[i] << " ";
 
-      // this is the checking goes
 
-      // bool check = checkForValidOLD();
-
-      // this is the printing if valid
-      // if(check == true){
-      // print array
-      //}
+      // write to file instead of cout
+      // then reaccess from main 
+      
     }
     cout << endl;
+    inFile << endl;
     return;
   }
   for (int i = start; i <= end && end - i + 1 >= r - index; i++) {
     combinationArray[index] = inputArray[i];
-    FindCombinations(inputArray, combinationArray, i + 1, end, index + 1, r);
+    FindCombinations(inputArray, combinationArray, i + 1, end, index + 1, r, inFile);
   }
 }

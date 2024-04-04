@@ -1,6 +1,7 @@
 #include "type.h"
 #include <iomanip>
 #include <iostream>
+#include <fstream>
 
 // switch the length and width dimenstions
 
@@ -9,11 +10,14 @@ using namespace std;
 int main() {
   cout << "THIS IS THE OLD INFINATE GRAPH GENERATOR" << endl;
 
-  int mainUserWidth = getUserTileWidth();
-  int mainUserLength = getUserTileLength();
 
-  cout << "Width: " << mainUserWidth << endl;
+  int mainUserLength = getUserTileLength();
+  int mainUserWidth = getUserTileWidth();
+  
+
   cout << "Length: " << mainUserLength << endl;
+  cout << "Width: " << mainUserWidth << endl;
+  
 
   float mainUserDensity = getUserDensity();
   cout << "Density: " << mainUserDensity << endl;
@@ -69,5 +73,16 @@ int main() {
   int currentCombo[r];
   cout << "Combinations" << endl;
 
-  FindCombinations(sampleCombo, currentCombo, 0, n - 1, 0, r);
+  // open the write file and pass into function
+  // clear the file
+
+  fstream inFile;
+  // clear contents and open
+  inFile.open("combo.txt", ofstream::out | ofstream::trunc);
+
+  
+
+  FindCombinations(sampleCombo, currentCombo, 0, n - 1, 0, r, inFile);
+
+  inFile.close(); 
 }

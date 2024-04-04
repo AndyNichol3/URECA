@@ -1,4 +1,6 @@
 #pragma once
+#include <fstream>
+using namespace std; 
 
 // const int DETECTOR = 1;
 // int NONDETECTOR = 0;
@@ -11,4 +13,4 @@ void printGraph(int graphG[ABSOLUTE_MAX][ABSOLUTE_MAX], int graphWidth,
                 int graphLength);
 
 void FindCombinations(int inputArray[], int combinationArray[], int start,
-                      int end, int index, int r);
+                      int end, int index, int r, fstream &inFile);
