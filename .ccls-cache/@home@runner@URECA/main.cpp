@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <iostream>
 #include <fstream>
+#include <vector> 
 
 // switch the length and width dimenstions
 
@@ -85,4 +86,92 @@ int main() {
   FindCombinations(sampleCombo, currentCombo, 0, n - 1, 0, r, inFile);
 
   inFile.close(); 
+ 
+
+  fstream read;
+  read.open( "combo.txt"); 
+  while(!read.eof()){
+    
+    vector < int > comboVector;  
+    string comboString;
+    string storage =""; 
+    getline(read, comboString,'\n');
+    int index = 0;
+
+    // put into vector
+    for(int i = 0; i < comboString.length(); i++){
+      if(comboString[i] == ' '){
+        //cout << "storage = " << storage << endl;
+        comboVector.push_back(stoi(storage));
+        storage = "";
+        index++;
+        continue;
+      }
+      storage += comboString[i];
+    
+    }
+
+    // --------------
+    //  display vector
+    // --------------
+    /*
+
+    for(int i = 0; i < comboVector.size(); i++){
+      cout << comboVector[i] << " ";
+    }
+    cout << endl;
+*/ 
+
+    // fill in the entire array
+    // graphG fill in with 1 and 0s
+
+    int tempArray[mainUserWidth*mainUserLength];
+    for(int i = 0; i < mainUserWidth*mainUserLength; i++){
+      for(int j = 0; j < comboVector.size(); j++){
+        if(i == comboVector[j]){
+        tempArray[i] = 1;
+       }else {
+          tempArray[i] = 0; 
+       }
+      }
+    }
+
+    // turn temp arry into graph G 
+    
+
+    /*
+    int tally = 0; 
+    for (int i = 0; i < graphWidth; i++) {
+      for (int j = 0; j < graphLength; j++) {
+        for(int x = 0; x < comboVector.size(); x++){
+          if(comboVector[x] == tally){
+            graphG[i][j] = 1;
+        }
+      }  
+        tally ++;
+     }
+    }
+    */ 
+
+    // print the graph
+    printGraph(graphG, graphWidth, graphLength);
+
+    // create copy and add the neighborhoods
+    // creat graphH then add some kind of data structure to keep track of neighborhood
+
+    // check if the graph is valid
+    // bool check = checkValidOLD(graphH, graphWidth, graphLength);
+
+    // if valid, cout
+    // if(check){
+      //cout << graphG and graphH
+    //{
+
+    
+    
+    
+  }
+
+  
+
 }

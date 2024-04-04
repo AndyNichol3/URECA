@@ -126,6 +126,7 @@ float getUserDensity() {
 
 void printGraph(int graphG[ABSOLUTE_MAX][ABSOLUTE_MAX], int graphWidth,
                 int graphLength) {
+  cout << "---------------------------------------" << endl;
   for (int i = 0; i < graphWidth; i++) {
     if(i % (graphWidth / 3) == 0){
       cout << endl;
@@ -146,10 +147,10 @@ void FindCombinations(int inputArray[], int combinationArray[], int start,
                       int end, int index, int r, fstream &inFile) {
 
   if (index == r) {
-     cout << "combination: ";
+   //  cout << "combination: ";
     for (int i = 0; i < r; i++) {
      
-      cout << combinationArray[i] << " ";
+    //  cout << combinationArray[i] << " ";
 
       // write to file
       inFile << combinationArray[i] << " ";
@@ -159,7 +160,7 @@ void FindCombinations(int inputArray[], int combinationArray[], int start,
       // then reaccess from main 
       
     }
-    cout << endl;
+  //  cout << endl;
     inFile << endl;
     return;
   }
