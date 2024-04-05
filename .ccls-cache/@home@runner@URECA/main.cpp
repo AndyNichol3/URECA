@@ -114,45 +114,98 @@ int main() {
     // --------------
     //  display vector
     // --------------
-    /*
-
+    
+/*
     for(int i = 0; i < comboVector.size(); i++){
       cout << comboVector[i] << " ";
     }
     cout << endl;
-*/ 
+
+*/
 
     // fill in the entire array
     // graphG fill in with 1 and 0s
 
+    
+
     int tempArray[mainUserWidth*mainUserLength];
     for(int i = 0; i < mainUserWidth*mainUserLength; i++){
-      for(int j = 0; j < comboVector.size(); j++){
-        if(i == comboVector[j]){
-        tempArray[i] = 1;
-       }else {
-          tempArray[i] = 0; 
-       }
+      tempArray[i] = 0; 
+    }
+
+    for(int i = 0; i < comboVector.size(); i++){
+      tempArray[comboVector[i]] = 1;
+    }
+
+    // --------------------
+    // diaplay 1d array
+    // --------------------
+
+    /*
+    for(int i = 0; i < mainUserWidth * mainUserLength; i++){
+      cout << tempArray[i] << " ";
+    }
+    cout << endl; 
+    */ 
+
+    // -------end----------
+
+    // turn temp arry into graph G 
+
+    // OBJECTIVE: turn the 1darray into the 2d full graphG
+
+    for(int i=0; i < graphWidth; i++){
+      for(int j=0; j < graphLength; j++){
+        graphG[i][j] = tempArray[i*graphLength + j];
+      }
+    }
+    
+    
+    int new2dArray[mainUserWidth][mainUserLength];
+    int tally = 0;
+    for(int i=0; i < mainUserWidth; i++){
+      for(int j=0; j < mainUserLength; j++){
+        new2dArray[i][j] = tempArray[tally]; 
+        tally ++; 
       }
     }
 
-    // turn temp arry into graph G 
-    
+    // --------------------
+    // print the 2d array
+    // --------------------
+    /*
+
+    for(int i=0; i < mainUserWidth; i++){
+      for(int j=0; j < mainUserLength; j++){
+        cout << new2dArray[i][j] << " ";
+      }
+      cout << endl;
+    }
+  cout << " ----------------- " << endl; 
+
+    */ 
+    // ------end print-----------
+
+    // turn tile into graph g
+
+    // STOPPED HERE:
+    // OBJECTVIE: place the tile onto the big graphG
 
     /*
-    int tally = 0; 
-    for (int i = 0; i < graphWidth; i++) {
-      for (int j = 0; j < graphLength; j++) {
-        for(int x = 0; x < comboVector.size(); x++){
-          if(comboVector[x] == tally){
-            graphG[i][j] = 1;
-        }
-      }  
-        tally ++;
-     }
-    }
-    */ 
+    // print the 2d graph
 
+    for(int i = 0; i < graphWidth; i++){
+      for(int j = 0; j < graphLength; j++){
+
+        int newI = i % mainUserWidth;
+        int newJ = j % mainUserLength;
+        
+        graphG[i][j]= new2dArray[newI][newJ];
+      }
+    }
+
+    */ 
+ 
     // print the graph
     printGraph(graphG, graphWidth, graphLength);
 
@@ -171,7 +224,4 @@ int main() {
     
     
   }
-
-  
-
 }
