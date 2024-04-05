@@ -1,8 +1,8 @@
 #include "type.h"
+#include <fstream>
 #include <iomanip>
 #include <iostream>
-#include <fstream>
-#include <vector> 
+#include <vector>
 
 // switch the length and width dimenstions
 
@@ -11,14 +11,11 @@ using namespace std;
 int main() {
   cout << "THIS IS THE OLD INFINATE GRAPH GENERATOR" << endl;
 
-
   int mainUserLength = getUserTileLength();
   int mainUserWidth = getUserTileWidth();
-  
 
   cout << "Length: " << mainUserLength << endl;
   cout << "Width: " << mainUserWidth << endl;
-  
 
   float mainUserDensity = getUserDensity();
   cout << "Density: " << mainUserDensity << endl;
@@ -81,61 +78,60 @@ int main() {
   // clear contents and open
   inFile.open("combo.txt", ofstream::out | ofstream::trunc);
 
-  
-
   FindCombinations(sampleCombo, currentCombo, 0, n - 1, 0, r, inFile);
 
-  inFile.close(); 
- 
+  inFile.close();
 
   fstream read;
-  read.open( "combo.txt"); 
-  while(!read.eof()){
-    
-    vector < int > comboVector;  
+  read.open("combo.txt");
+  while (!read.eof()) {
+
+    vector<int> comboVector;
     string comboString;
-    string storage =""; 
-    getline(read, comboString,'\n');
+    string storage = "";
+    getline(read, comboString, '\n');
     int index = 0;
 
     // put into vector
-    for(int i = 0; i < comboString.length(); i++){
-      if(comboString[i] == ' '){
-        //cout << "storage = " << storage << endl;
+    for (int i = 0; i < comboString.length(); i++) {
+      if (comboString[i] == ' ') {
+        // cout << "storage = " << storage << endl;
         comboVector.push_back(stoi(storage));
         storage = "";
         index++;
         continue;
       }
       storage += comboString[i];
-    
     }
 
     // --------------
     //  display vector
     // --------------
-    
-/*
-    for(int i = 0; i < comboVector.size(); i++){
-      cout << comboVector[i] << " ";
-    }
-    cout << endl;
+    /*
+        for(int i = 0; i < comboVector.size(); i++){
+          cout << comboVector[i] << " ";
+        }
+        cout << endl;
 
-*/
+    */
+    // ------end-----
 
     // fill in the entire array
     // graphG fill in with 1 and 0s
 
-    
+    // --------------------
+    // generate tile into 2d array
+    // --------------------
 
-    int tempArray[mainUserWidth*mainUserLength];
-    for(int i = 0; i < mainUserWidth*mainUserLength; i++){
-      tempArray[i] = 0; 
+    int tempArray[mainUserWidth * mainUserLength];
+    for (int i = 0; i < mainUserWidth * mainUserLength; i++) {
+      tempArray[i] = 0;
     }
-
-    for(int i = 0; i < comboVector.size(); i++){
+    for (int i = 0; i < comboVector.size(); i++) {
       tempArray[comboVector[i]] = 1;
     }
+
+     // ------end-----------
 
     // --------------------
     // diaplay 1d array
@@ -145,28 +141,27 @@ int main() {
     for(int i = 0; i < mainUserWidth * mainUserLength; i++){
       cout << tempArray[i] << " ";
     }
-    cout << endl; 
-    */ 
+    cout << endl;
+    */
 
     // -------end----------
 
-    // turn temp arry into graph G 
+    // turn temp arry into graph G
 
     // OBJECTIVE: turn the 1darray into the 2d full graphG
 
-    for(int i=0; i < graphWidth; i++){
-      for(int j=0; j < graphLength; j++){
-        graphG[i][j] = tempArray[i*graphLength + j];
+    for (int i = 0; i < graphWidth; i++) {
+      for (int j = 0; j < graphLength; j++) {
+        graphG[i][j] = tempArray[i * graphLength + j];
       }
     }
-    
-    
+
     int new2dArray[mainUserWidth][mainUserLength];
     int tally = 0;
-    for(int i=0; i < mainUserWidth; i++){
-      for(int j=0; j < mainUserLength; j++){
-        new2dArray[i][j] = tempArray[tally]; 
-        tally ++; 
+    for (int i = 0; i < mainUserWidth; i++) {
+      for (int j = 0; j < mainUserLength; j++) {
+        new2dArray[i][j] = tempArray[tally];
+        tally++;
       }
     }
 
@@ -181,47 +176,50 @@ int main() {
       }
       cout << endl;
     }
-  cout << " ----------------- " << endl; 
+  cout << " ----------------- " << endl;
 
-    */ 
+    */
     // ------end print-----------
-
-    // turn tile into graph g
 
     // STOPPED HERE:
     // OBJECTVIE: place the tile onto the big graphG
 
+    //----------------------
+    // create 2d graph
+    // ---------------------
+
     /*
-    // print the 2d graph
+    // create the 2d graph
 
     for(int i = 0; i < graphWidth; i++){
       for(int j = 0; j < graphLength; j++){
 
         int newI = i % mainUserWidth;
         int newJ = j % mainUserLength;
-        
+
         graphG[i][j]= new2dArray[newI][newJ];
       }
     }
 
-    */ 
- 
+    */
+    // ---------end---------
+
     // print the graph
     printGraph(graphG, graphWidth, graphLength);
 
+    // STOPPED HERE
+    // PSUEDO CODE BELOW
+
     // create copy and add the neighborhoods
-    // creat graphH then add some kind of data structure to keep track of neighborhood
+    // creat graphH then add some kind of data structure to keep track of
+    // neighborhood
 
     // check if the graph is valid
     // bool check = checkValidOLD(graphH, graphWidth, graphLength);
 
     // if valid, cout
     // if(check){
-      //cout << graphG and graphH
+    // cout << graphG and graphH
     //{
-
-    
-    
-    
   }
 }
