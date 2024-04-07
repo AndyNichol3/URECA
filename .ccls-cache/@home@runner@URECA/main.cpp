@@ -3,13 +3,26 @@
 #include <iomanip>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 // switch the length and width dimenstions
 
 using namespace std;
 
+class ArrayOfPairs {
+public:
+  vector<pair<int, int>> neighborhood;
+
+  bool operator==(const ArrayOfPairs &rhs) const {
+    return neighborhood == rhs.neighborhood;
+  }
+  void sortVector(){
+    sort(neighborhood.begin(), neighborhood.end());
+  }
+};
+
 int main() {
-  cout << "THIS IS THE OLD INFINATE GRAPH GENERATOR" << endl;
+  cout << "THIS IS THE OLD INFINITE GRAPH GENERATOR" << endl;
 
   int mainUserLength = getUserTileLength();
   int mainUserWidth = getUserTileWidth();
@@ -84,7 +97,9 @@ int main() {
 
   fstream read;
   read.open("combo.txt");
-  while (!read.eof()) {
+  while (!read.eof())
+    {
+      //topOfWhileLoop: 
 
     vector<int> comboVector;
     string comboString;
@@ -96,7 +111,9 @@ int main() {
     for (int i = 0; i < comboString.length(); i++) {
       if (comboString[i] == ' ') {
         // cout << "storage = " << storage << endl;
+        // the correct code
         comboVector.push_back(stoi(storage));
+
         storage = "";
         index++;
         continue;
@@ -131,18 +148,20 @@ int main() {
       tempArray[comboVector[i]] = 1;
     }
 
-     // ------end-----------
+    // ------end-----------
 
     // --------------------
     // diaplay 1d array
     // --------------------
 
-    /*
+      /*
+
+    
     for(int i = 0; i < mainUserWidth * mainUserLength; i++){
       cout << tempArray[i] << " ";
     }
-    cout << endl;
-    */
+    cout << endl;*/
+    
 
     // -------end----------
 
@@ -168,8 +187,9 @@ int main() {
     // --------------------
     // print the 2d array
     // --------------------
-    /*
+    
 
+    /*
     for(int i=0; i < mainUserWidth; i++){
       for(int j=0; j < mainUserLength; j++){
         cout << new2dArray[i][j] << " ";
@@ -177,8 +197,8 @@ int main() {
       cout << endl;
     }
   cout << " ----------------- " << endl;
-
-    */
+*/ 
+    
     // ------end print-----------
 
     // STOPPED HERE:
@@ -188,7 +208,7 @@ int main() {
     // create 2d graph
     // ---------------------
 
-    /*
+    
     // create the 2d graph
 
     for(int i = 0; i < graphWidth; i++){
@@ -197,29 +217,151 @@ int main() {
         int newI = i % mainUserWidth;
         int newJ = j % mainUserLength;
 
+
         graphG[i][j]= new2dArray[newI][newJ];
       }
     }
 
-    */
+    
     // ---------end---------
 
     // print the graph
-    printGraph(graphG, graphWidth, graphLength);
+    // printGraph(graphG, graphWidth, graphLength);
+
+    // creat graphH then add some kind of data structure to keep track of
+    // neighborhood
+
+    //sort(arr.begin(), arr.end(), comparePairs);
+
+    //printGraph(graphG, graphWidth, graphLength); 
+
+    ArrayOfPairs graphNeighborhoods[graphWidth][graphLength];
+    //pair<int, int> tempPair;
+
+    /*
+    tempPair = {1, 1};
+    graphNeighborhoods[0][0].neighborhood.push_back(tempPair);
+
+    tempPair = {0, 1};
+    graphNeighborhoods[0][0].neighborhood.push_back(tempPair);
+
+    tempPair = {0, 1};
+    graphNeighborhoods[0][1].neighborhood.push_back(tempPair);
+
+    tempPair = {1, 1};
+    graphNeighborhoods[0][1].neighborhood.push_back(tempPair);
+    */
+
+     //printGraph(graphG, graphWidth, graphLength); 
+    
+    
+    /*
+
+    if (graphNeighborhoods[0][0].neighborhood ==
+        graphNeighborhoods[0][1].neighborhood) {
+      cout << "EQUAL" << endl;
+    } else {
+      cout << "not " << endl;
+    }
+    */
+
+    // CONFIRMED == works
 
     // STOPPED HERE
     // PSUEDO CODE BELOW
 
     // create copy and add the neighborhoods
-    // creat graphH then add some kind of data structure to keep track of
-    // neighborhood
 
-    // check if the graph is valid
-    // bool check = checkValidOLD(graphH, graphWidth, graphLength);
+    // for all of the vertex in the graph
 
-    // if valid, cout
-    // if(check){
-    // cout << graphG and graphH
-    //{
+      
+      
+    for(int i = 0; i < graphWidth; i++){
+      for(int j = 0; j < graphLength; j++){
+        // if the graph index == 1
+        if(graphG[i][j] == 1){
+          // create the pair
+          pair <int,int> tempPair = {i, j};
+          // for all 8 cardinal directions
+          for(int k = -1; k < 2; k++){
+            for(int l = -1; l < 2; l++){
+              // if the index is inbounds
+              if(k == 0 && l == 0){
+                continue;
+              }
+              if(i + k >= 0 && i + k < graphWidth && j + l >= 0 && j + l < graphLength){
+                 // add the pair to the graph neighborhood .pushback
+                graphNeighborhoods[i + k][j + l].neighborhood.push_back(tempPair);
+                //cout << "pushed back " << tempPair.first << " " << tempPair.second << " to " << i + k << " " << j + l << endl;
+                
+              }
+             
+            }
+          }
+         
+        }
+       
+      }
+    }
+
+    for (auto &neighborhood : graphNeighborhoods) {
+        for (auto &pair : neighborhood) {
+            pair.sortVector(); // Sort the vector of pairs for each element in the neighborhood
+        }
+    }
+    bool solution = true; 
+
+    for(int i = 2; i < graphWidth-2; i++){
+      for(int j = 2; j < graphLength-2
+; j++){
+        // for all of the vertex in the graph
+        // if the graph neighborod is empty
+        if(graphNeighborhoods[i][j].neighborhood.empty()){
+          //cout << i << " " << j << " : empty" << endl;
+         
+          solution = false;
+           //goto topOfWhileLoop;
+        }
+        
+
+        // for all 8 cardinal directions
+        // if the index is inbounds
+        // if neighborhood of the index is == to the neighboohd of cardinal
+        for(int k = -2; k < 3; k++){
+          for(int l = -2; l < 3; l++){
+            // if the index is inbounds
+            if(k == 0 && l == 0){
+              continue;
+            }
+            if(i + k >= 0 && i + k < graphWidth && j + l >= 0 && j + l){
+              if(graphNeighborhoods[i + k][j + l].neighborhood == graphNeighborhoods[i][j].neighborhood){
+                //cout << i << " " << j << " : " << i + k << " " << j + l << " equal " << endl; 
+                solution = false;
+                 //goto topOfWhileLoop;
+              }
+            }
+          }
+          
+        // direction return false/break
+        
+      }
+    }
+    
+
+    
+
+    // if true at end of loop,
+    // found valid solution
+    // print
   }
+
+    if(solution){
+      cout << "Solution found" << endl;
+      // print
+      printGraph(graphG, graphWidth, graphLength); 
+    }
+      
+
+    }
 }
+//
