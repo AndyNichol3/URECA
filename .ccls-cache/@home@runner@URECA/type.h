@@ -29,7 +29,12 @@ void printGraph(int graphG[ABSOLUTE_MAX][ABSOLUTE_MAX], int graphWidth,
 
 void FindCombinations(int inputArray[], int combinationArray[], int start,
                       int end, int index, int r, fstream &inFile);
+void clearTextFile();
 
 void generateOLDKingGrid(); 
 
 void generateOLDSquareGrid(); 
+
+void generateICKingGrid();
+
+void generateICSquareGrid(); 
