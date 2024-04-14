@@ -1,7 +1,10 @@
 #include "type.h"
+#include <algorithm>
 #include <fstream>
+#include <iomanip>
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -168,12 +171,12 @@ void FindCombinations(int inputArray[], int combinationArray[], int start,
                      inFile);
   }
 }
-void clearTextFile(){
+void clearTextFile() {
   fstream inFile;
   // clear contents and open
   inFile.open("combo.txt", ofstream::out | ofstream::trunc);
 
-  inFile.close(); 
+  inFile.close();
 }
 
 void generateOLDKingGrid() {
@@ -243,9 +246,10 @@ void generateOLDKingGrid() {
   // open the write file and pass into function
   // clear the file
 
+  clearTextFile();
+
   fstream inFile;
-  // clear contents and open
-  inFile.open("combo.txt", ofstream::out | ofstream::trunc);
+  inFile.open("combo.txt");
 
   FindCombinations(sampleCombo, currentCombo, 0, n - 1, 0, r, inFile);
 
@@ -387,33 +391,6 @@ void generateOLDKingGrid() {
     // printGraph(graphG, graphWidth, graphLength);
 
     ArrayOfPairs graphNeighborhoods[graphWidth][graphLength];
-    // pair<int, int> tempPair;
-
-    /*
-    tempPair = {1, 1};
-    graphNeighborhoods[0][0].neighborhood.push_back(tempPair);
-
-    tempPair = {0, 1};
-    graphNeighborhoods[0][0].neighborhood.push_back(tempPair);
-
-    tempPair = {0, 1};
-    graphNeighborhoods[0][1].neighborhood.push_back(tempPair);
-
-    tempPair = {1, 1};
-    graphNeighborhoods[0][1].neighborhood.push_back(tempPair);
-    */
-
-    // printGraph(graphG, graphWidth, graphLength);
-
-    /*
-
-    if (graphNeighborhoods[0][0].neighborhood ==
-        graphNeighborhoods[0][1].neighborhood) {
-      cout << "EQUAL" << endl;
-    } else {
-      cout << "not " << endl;
-    }
-    */
 
     // CONFIRMED == works
 
@@ -951,7 +928,7 @@ void generateICKingGrid() {
           for (int k = -1; k < 2; k++) {
             for (int l = -1; l < 2; l++) {
               // if the index is inbounds
-              
+
               if (i + k >= 0 && i + k < graphWidth && j + l >= 0 &&
                   j + l < graphLength) {
                 // add the pair to the graph neighborhood .pushback
@@ -1022,7 +999,7 @@ void generateICKingGrid() {
   }
 }
 
-void generateICSquareGrid(){
+void generateICSquareGrid() {
   cout << "THIS IS THE OLD SQUARE GRID GENERATOR" << endl;
 
   int mainUserLength = getUserTileLength();
@@ -1140,9 +1117,8 @@ void generateICSquareGrid(){
             for (int l = -1; l < 2; l++) {
               // if the index is inbounds
 
-              
-              //if (k == 0 && l == 0) {
-                 //continue;
+              // if (k == 0 && l == 0) {
+              // continue;
               //}
               if (k != 0 && l != 0) {
                 continue;
@@ -1208,4 +1184,3 @@ void generateICSquareGrid(){
     }
   }
 }
-

@@ -1,9 +1,12 @@
 #pragma once
-#include <fstream>
-#include <vector>
-#include <string>
 #include <algorithm>
-using namespace std; 
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 class ArrayOfPairs {
 public:
@@ -12,9 +15,7 @@ public:
   bool operator==(const ArrayOfPairs &rhs) const {
     return neighborhood == rhs.neighborhood;
   }
-  void sortVector(){
-    sort(neighborhood.begin(), neighborhood.end());
-  }
+  void sortVector() { sort(neighborhood.begin(), neighborhood.end()); }
 };
 
 // const int DETECTOR = 1;
@@ -31,10 +32,10 @@ void FindCombinations(int inputArray[], int combinationArray[], int start,
                       int end, int index, int r, fstream &inFile);
 void clearTextFile();
 
-void generateOLDKingGrid(); 
+void generateOLDKingGrid();
 
-void generateOLDSquareGrid(); 
+void generateOLDSquareGrid();
 
 void generateICKingGrid();
 
-void generateICSquareGrid(); 
+void generateICSquareGrid();
